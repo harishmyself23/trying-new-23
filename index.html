@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For Someone Special ❤️</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+
+    body {
+      background: linear-gradient(135deg, #ffd6e7, #e0c3fc);
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* cinematic blur layer */
+    .blur-bg {
+      position: fixed;
+      inset: 0;
+      backdrop-filter: blur(18px);
+      background: rgba(255,255,255,0.15);
+      z-index: 0;
+    }
+
+    /* floating hearts */
+    .hearts {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .hearts span {
+      position: absolute;
+      bottom: -20px;
+      font-size: 20px;
+      animation: floatUp 10s linear infinite;
+      opacity: 0.6;
+    }
+
+    @keyframes floatUp { from { transform: translateY(0); } to { transform: translateY(-110vh); } }
+
+    .scene {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      padding: 24px;
+      animation: fade 0.8s ease;
+      z-index: 1;
+    }
+
+    .active { display: flex; }
+
+    h1 { font-size: 2.1rem; margin-bottom: 20px; color: #333; }
+
+    p {
+      font-size: 1.18rem;
+      max-width: 540px;
+      margin-bottom: 32px;
+      color: #444;
+      line-height: 1.75;
+      min-height: 90px;
+    }
+
+    button {
+      padding: 12px 28px;
+      border: none;
+      border-radius: 30px;
+      background: #ff6fa5;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.25s ease;
+    }
+
+    button:hover { transform: scale(1.1); box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+
+    /* glowing photo */
+    #photo {
+      width: 270px;
+      border-radius: 24px;
+      margin-bottom: 22px;
+      box-shadow: 0 0 25px rgba(255,105,180,0.6), 0 15px 35px rgba(0,0,0,0.25);
+      animation: glow 2.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      from { box-shadow: 0 0 15px rgba(255,105,180,0.4), 0 15px 35px rgba(0,0,0,0.25); }
+      to { box-shadow: 0 0 35px rgba(255,105,180,0.8), 0 15px 35px rgba(0,0,0,0.25); }
+    }
+
+    #noBtn { position: absolute; background: #888; }
+
+    /* real confetti */
+    canvas { position: fixed; inset: 0; pointer-events: none; display: none; z-index: 5; }
+
+    @keyframes fade { from { opacity: 0; transform: translateY(25px); } to { opacity: 1; transform: translateY(0); } }
+  </style>
+</head>
+<body>
+
+  <div class="blur-bg"></div>
+  <div class="hearts" id="hearts"></div>
+
+  <audio id="bgMusic" loop>
+    <source src="song.mp3" type="audio/mpeg">
+  </audio>
+
+  <canvas id="confetti"></canvas>
+
+  <!-- SCENES -->
+
+  <div class="scene active">
+    <h1>Heyloo Bhonduuu… Tu bolti hai mein pyar nahi karta?.</h1>
+    <p class="type">See I did something for you, to make you belive that I genuinely do love you.</p>
+    <button onclick="nextScene()">Toh Shuru Kare? ❤️</button>
+  </div>
+
+  <div class="scene">
+    <p class="type">Sab shuru hua jab hum aiport pe mile aur tera dil mujhpe pehli nazar pe aa gaya😘❤️.</p>
+    <button onclick="nextScene()">Aur Fir 👀</button>
+  </div>
+
+  <div class="scene">
+    <p class="type">Itni badi company mein hum dono ko same training mili, aur hum dono ki setting bhi ekdum perfect beth gayi😆</p>
+    <button onclick="nextScene()">Aage jao😉…</button>
+  </div>
+
+  <div class="scene">
+    <p class="type">Gokul homes mein tere sath simple kaam karne bhi maza aane laga, aam zindagi behtar lagne lagi .</p>
+    <button onclick="nextScene()">Aur Bhi Hai🤣…</button>
+  </div>
+
+  <div class="scene">
+    <p class="type">Bike Rides pe jana, ice cream khana, saath mein pune jana, zindagi badi haseen ho gayi hai😘</p>
+    <button onclick="nextScene()">Aage ja aage jaa😙…</button>
+  </div>
+
+  <div class="scene">
+    <p class="type">Javed Ali concert mein sath gana, pottery mein matka banana, alexa ke sath gane bajana 1 saal bada tezi se gaya😘❤️</p>
+    <button onclick="nextScene()">Bas ek aur baat…</button>
+  </div>
+
+  <div class="scene">
+    <p class="type">Toh jiske liye tu mere sir pe nachri hai🤣…Ab mein puchunga😆.</p>
+    <button onclick="nextScene()">Sooooo....❤️</button>
+  </div>
+
+  <div class="scene">
+    <img id="photo" src="photo.jpg" alt="Us">
+    <h1>Will you be my Valentine?</h1>
+
+    <button onclick="sayYes()">YES ❤️</button>
+    <button id="noBtn" onmouseover="moveNo()">No 🙃</button>
+  </div>
+
+  <div class="scene" id="yesScene">
+    <h1>YAYYY ❤️</h1>
+    <p>AWWWW BHONDUUMONNN, LESGOOOOOO.</p>
+  </div>
+
+  <script>
+    const scenes = document.querySelectorAll('.scene');
+    let index = 0;
+
+    function nextScene() {
+      if (index === 0) document.getElementById('bgMusic').play().catch(()=>{});
+      scenes[index].classList.remove('active');
+      index++;
+      scenes[index].classList.add('active');
+      typeText();
+    }
+
+    function typeText() {
+      const el = scenes[index].querySelector('.type');
+      if (!el) return;
+      const text = el.textContent;
+      el.textContent = '';
+      let i = 0;
+      const interval = setInterval(() => {
+        el.textContent += text[i];
+        i++;
+        if (i >= text.length) clearInterval(interval);
+      }, 26);
+    }
+
+    const noMessages = ["Pakkaa? 😭","Soch le 👀","Chall hatttt","Galat kar rahi hai","Not Allowed!!!","Nice try 😂"];
+
+    function moveNo() {
+      const btn = document.getElementById('noBtn');
+      btn.style.left = Math.random() * (window.innerWidth - 120) + 'px';
+      btn.style.top = Math.random() * (window.innerHeight - 60) + 'px';
+      btn.textContent = noMessages[Math.floor(Math.random()*noMessages.length)];
+    }
+
+    function sayYes() {
+      if (navigator.vibrate) navigator.vibrate([100, 50, 120]);
+      scenes[index].classList.remove('active');
+      document.getElementById('yesScene').classList.add('active');
+      startConfetti();
+    }
+
+    /* CONFETTI ENGINE */
+    const canvas = document.getElementById('confetti');
+    const ctx = canvas.getContext('2d');
+    let pieces = [];
+
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    function startConfetti() {
+      canvas.style.display = 'block';
+      pieces = Array.from({length: 160}).map(() => ({
+        x: Math.random()*canvas.width,
+        y: Math.random()*canvas.height - canvas.height,
+        r: Math.random()*6+4,
+        d: Math.random()*0.5+0.5,
+        color: `hsl(${Math.random()*360},100%,70%)`
+      }));
+      requestAnimationFrame(updateConfetti);
+    }
+
+    function updateConfetti() {
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      pieces.forEach(p => {
+        ctx.fillStyle = p.color;
+        ctx.fillRect(p.x, p.y, p.r, p.r);
+        p.y += p.d * 4;
+        if (p.y > canvas.height) p.y = -10;
+      });
+      requestAnimationFrame(updateConfetti);
+    }
+
+    /* hearts */
+    const hearts = document.getElementById('hearts');
+    for (let i=0;i<25;i++){
+      const s=document.createElement('span');
+      s.textContent='❤';
+      s.style.left=Math.random()*100+'vw';
+      s.style.animationDuration=(6+Math.random()*6)+'s';
+      s.style.fontSize=(12+Math.random()*20)+'px';
+      hearts.appendChild(s);
+    }
+
+    typeText();
+  </script>
+
+</body>
+
+<!-- Built with love, courage, and mild overthinking. -->
+</html>
